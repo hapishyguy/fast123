@@ -1,96 +1,278 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<html>
+<head>
+    <title>Track Your Order</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+        }
+        h2 { color: #333; }
+        #track-box {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        #track-box h3 { margin-top: 0; }
+        #result { margin: 20px 0; }
+        .input-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #order-input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .result-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-top: 15px;
+        }
+        .tracking-input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background: #f9f9f9;
+            font-size: 14px;
+        }
+        .copy-btn {
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .error-box {
+            color: #D32F2F;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Track Your Order</h2>
+    
+    <div id="track-box">
+        <h3>Order: <span id="order-num">Enter Order Number</span></h3>
+        
+        <div id="result">
+            <p>Enter your order number received in email above.</p>
+        </div>
+        
+        <div class="input-box">
+            <input type="text" id="order-input" placeholder="Example: 2001234567">
+            <button onclick="checkOrder()">Track Order</button>
+        </div>
+    </div>
+
+    <script>
+        // PASTE YOUR GOOGLE SHEET LINK HERE
+        const sheetLink = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ50kEX0Z9clJo_GVZjHGO4EIMAxps4R4m8ayXCmBYmkDI1YXuGZFBAXl5bCI0bBE_zzvWPbj-Kb7Rf/pub?output=csv";
+        
+        function getOrderIdFromFragment() {
+            const hash = window.location.hash;
+            if (hash && hash.includes('id=')) {
+                const hashContent = hash.substring(1);
+                const params = new URLSearchParams(hashContent);
+                return params.get('id');
+            }
+            return null;
+        }
+        
+        function checkOrder() {
+            const orderId = document.getElementById("order-input").value.trim().toUpperCase();
+            document.getElementById("order-num").textContent = orderId;
+            
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = '<p style="color:#666;">Checking status...</p>';
+            
+            fetch(sheetLink)
+                .then(r => r.text())
+                .then(data => {
+                    const rows = data.split('\n');
+                    let found = false;
+                    
+                    for(let i = 1; i < rows.length; i++) {
+                        const cols = rows[i].split(',');
+                        if((cols[1] && cols[1].trim().toUpperCase() === orderId) || 
+                           (cols[2] && cols[2].trim().toUpperCase() === orderId) ||
+                           (cols[2] && cols[7].trim().toUpperCase() === orderId) ||
+                           (cols[7] && cols[9].trim().toUpperCase() === orderId)) {
+                            
+                            const status = cols[4] ? cols[4].trim() : 'Ordered';
+                            const tracking = cols[3] ? cols[3].trim() : '';
+                            const estimatedArrival = cols[5] ? cols[5].trim() : '';
+                            const statusTime = cols[6] ? cols[6].trim() : '';
+                            const deliveryNote = cols[8] ? cols[8].trim() : '';
+                            
+                            let html = `<div class="result-box">`;
+                            
+                            // Status with icon
+                            html += `<div style="font-size:20px;margin-bottom:15px;color:#2E7D32;">`;
+                            if(status === 'Delivered') {
+                                html += `✅ <strong>DELIVERED</strong>`;
+                            } else if(status.includes('Out for delivery') || status.includes('Out-for-delivery')) {
+                                html += `🚚 <strong>OUT FOR DELIVERY</strong>`;
+                            } else if(status === 'Shipped') {
+                                html += `📦 <strong>SHIPPED</strong>`;
+                            } else if(status === 'Ordered') {
+                                html += `🔄 <strong>ORDERED</strong>`;
+                            } else {
+                                html += `📝 <strong>${status.toUpperCase()}</strong>`;
+                            }
+                            html += `</div>`;
+                            
+                            // Order ID
+                            html += `<div style="margin-bottom:10px;padding:8px;background:#f5f5f5;border-radius:4px;">`;
+                            html += `<strong>Order #:</strong> ${orderId}`;
+                            html += `</div>`;
+                            
+                            // Tracking info
+                            html += `<div style="margin-bottom:10px;">`;
+                            html += `<strong>Tracking #:</strong> `;
+                            if(tracking && tracking !== '') {
+                                html += `<span style="font-family:monospace;background:#f0f0f0;padding:2px 6px;border-radius:3px;">${tracking}</span>`;
+                            } else {
+                                html += `Will appear once shipped`;
+                            }
+                            html += `</div>`;
+                            
+                            // Estimated arrival
+                            if(estimatedArrival && estimatedArrival !== '') {
+                                html += `<div style="margin-bottom:10px;">`;
+                                html += `<strong>Delivery:</strong> ${estimatedArrival}`;
+                                html += `</div>`;
+                            }
+                            
+                            // Delivery Note
+                            if(deliveryNote && deliveryNote !== '') {
+                                html += `<div style="margin-bottom:10px;">`;
+                                html += `<strong>Delivery Note:</strong> ${deliveryNote}`;
+                                html += `</div>`;
+                            }
+                            
+                            // ShipName - NEW (Column J = index 9)
+                            const shipName = cols[9] ? cols[9].trim() : '';
+                            if(shipName !== '') {
+                                html += `<div style="margin-bottom:10px;">`;
+                                html += `<strong>Ship To:</strong> ${shipName}`;
+                                html += `</div>`;
+                            }
+                            
+                            // Location (City, State, ZIP) - NEW (Columns L,M,N = indices 11,12,13)
+                            const city = cols[11] ? cols[11].trim() : '';
+                            const state = cols[12] ? cols[12].trim() : '';
+                            const zip = cols[13] ? cols[13].trim() : '';
+                            if(city !== '' || state !== '' || zip !== '') {
+                                html += `<div style="margin-bottom:10px;">`;
+                                html += `<strong>Location:</strong> ${city}, ${state} ${zip}`.replace(/^,\s/, '').trim();
+                                html += `</div>`;
+                            }
+                            
+                            // StatusTime
+                            if(statusTime && statusTime !== '') {
+                                html += `<div style="margin-bottom:10px;color:#666;font-size:14px;">`;
+                                html += `<strong>Last updated:</strong> few minutes ago`;
+                                html += `</div>`;
+                            }
+                            
+                            // Tracking link
+                            const trackingUrl = `${window.location.origin}${window.location.pathname}#id=${encodeURIComponent(orderId)}`;
+                            html += `<div style="margin-top:15px;padding-top:15px;border-top:1px dashed #ddd;">`;
+                            html += `<strong>Your tracking link:</strong><br>`;
+                            html += `<input type="text" class="tracking-input" id="tracking-link-input" value="${trackingUrl}" readonly>`;
+                            html += `<button onclick="copyTrackingLink()" class="copy-btn">Copy Link</button>`;
+                            html += `<p style="font-size:12px;color:#666;margin-top:5px;">Share this link to check status anytime</p>`;
+                            html += `</div>`;
+                            
+                            html += `</div>`;
+                            
+                            resultDiv.innerHTML = html;
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if(!found) {
+                        resultDiv.innerHTML = `
+                            <div class="error-box">
+                                <p><strong>Order not found:</strong> ${orderId}</p>
+                                <p>Please check your order number and try again.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(() => {
+                    resultDiv.innerHTML = `
+                        <div class="error-box">
+                            <p><strong>Unable to check order status.</strong></p>
+                            <p>Please try again later.</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        function copyTrackingLink() {
+            const input = document.getElementById('tracking-link-input');
+            if (input) {
+                input.select();
+                input.setSelectionRange(0, 99999);
+                navigator.clipboard.writeText(input.value)
+                    .then(() => {
+                        const button = event.target;
+                        button.textContent = 'Copied!';
+                        button.style.background = '#2E7D32';
+                        setTimeout(() => {
+                            button.textContent = 'Copy Link';
+                            button.style.background = '#4CAF50';
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            }
+        }
+        
+        // Auto-check if order ID is in URL FRAGMENT (#)
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderFromFragment = getOrderIdFromFragment();
+            if(orderFromFragment) {
+                document.getElementById("order-input").value = orderFromFragment;
+                document.getElementById("order-num").textContent = orderFromFragment;
+                setTimeout(() => {
+                    checkOrder();
+                }, 100);
+            }
+        });
+        
+        // Allow pressing Enter to search
+        document.getElementById('order-input').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                checkOrder();
+            }
+        });
+    </script>
+</body>
 </html>
